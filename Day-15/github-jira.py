@@ -1,8 +1,7 @@
-# This code sample uses the 'requests' library:
-# http://docs.python-requests.org
 import requests
 from requests.auth import HTTPBasicAuth
 import json
+import os
 from flask import Flask
 
 app = Flask(__name__)
@@ -11,11 +10,11 @@ app = Flask(__name__)
 @app.route('/createJira', methods=['POST'])
 def createJira():
 
-    url = "https://veeramallaabhishek.atlassian.net/rest/api/3/issue"
+    url = "https://ecegauravmathur90.atlassian.net/rest/api/3/issue"
 
-    API_TOKEN=""
-
-    auth = HTTPBasicAuth("", API_TOKEN)
+    email_id = os.getenv('EMAIL_ID')
+    jira_api_token = os.getenv('JIRA_API_TOKEN')
+    auth = HTTPBasicAuth(email_id, jira_api_token)
 
     headers = {
         "Accept": "application/json",
@@ -40,10 +39,10 @@ def createJira():
              "version": 1
         },
         "project": {
-           "key": "AB"
+           "key": "MTS"
         },
         "issuetype": {
-            "id": "10006"
+            "id": "10007"
         },
         "summary": "Main order flow broken",
     },
